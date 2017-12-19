@@ -169,15 +169,15 @@ $DIALOG --title "$nameprogram" \
         #sudo emerge programs-arcade/raptor-call-shadows
         #wgetnarodru http://narod.ru/disk/39771959001/RaptorCalloftheShadows.tar.gz.html
         #raptor-call-shadows-unarh
-        wget -c http://ftp.linuxbuh.ru/1c83/server/1c-enterprise83-common_8.3.10-2667_i386.tar.gz -P /tmp/1c &&
-	wget -c http://ftp.linuxbuh.ru/1c83/server/1c-enterprise83-server_8.3.10-2667_i386.tar.gz -P /tmp/1c &&
-	wget -c http://ftp.linuxbuh.ru/1c83/client/1c-enterprise83-client_8.3.10-2667_i386.tar.gz -P /tmp/1c &&
-	wget -c http://ftp.linuxbuh.ru/1c83/libfor1c/backbus-i386.tar.gz -P /tmp/1c &&
-	tar xfvz /tmp/1c/1c-enterprise83-common_8.3.10-2667_i386.tar.gz -C / &&
-	tar xfvz /tmp/1c/1c-enterprise83-server_8.3.10-2667_i386.tar.gz -C / &&
-	tar xfvz /tmp/1c/1c-enterprise83-client_8.3.10-2667_i386.tar.gz -C / &&
-	tar xfvz /tmp/1c/backbus-i386.tar.gz -C / &&
-	rm -R /tmp/1c
+        sudo wget -c http://ftp.linuxbuh.ru/1c83/server/1c-enterprise83-common_8.3.10-2667_i386.tar.gz -P /tmp/1c &&
+	sudo wget -c http://ftp.linuxbuh.ru/1c83/server/1c-enterprise83-server_8.3.10-2667_i386.tar.gz -P /tmp/1c &&
+	sudo wget -c http://ftp.linuxbuh.ru/1c83/client/1c-enterprise83-client_8.3.10-2667_i386.tar.gz -P /tmp/1c &&
+	sudo wget -c http://ftp.linuxbuh.ru/1c83/libfor1c/backbus-i386.tar.gz -P /tmp/1c &&
+	sudo tar xfvz /tmp/1c/1c-enterprise83-common_8.3.10-2667_i386.tar.gz -C / &&
+	sudo tar xfvz /tmp/1c/1c-enterprise83-server_8.3.10-2667_i386.tar.gz -C / &&
+	sudo tar xfvz /tmp/1c/1c-enterprise83-client_8.3.10-2667_i386.tar.gz -C / &&
+	sudo tar xfvz /tmp/1c/backbus-i386.tar.gz -C / &&
+	sudo rm -R /tmp/1c
 	
         $DIALOG $OPTS --msgbox "$text1" 10 80
         fi
