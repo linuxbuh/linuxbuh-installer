@@ -12,8 +12,9 @@ if [ dirprograms != $dirprograms ]; then
 #pathtextfile=/usr/share/linuxbuh-installer/txt
 pathtextfile=./txt
 
-#text="Нажите Да и будет скачана и установленна программа\nи необходимые для нее библиотеки\n"
-#text1="Все установленно!\n\n Приятной и продуктивной Вам работы"
+text="Нажите Да и будет скачана и установленна программа\nи необходимые для нее библиотеки\n"
+text1="Все установленно!\n\n Приятной и продуктивной Вам работы"
+text2="Идет установка!\n\n Ждите"
 
 
     if [ "$DISPLAY" != "" ];
@@ -57,7 +58,7 @@ if [ "$choice" = "1centerprise83" ]; then
 
 textfile="$pathtextfile/1centerprise83.txt"
 
-nameprogram="Jazz Jack Rabbit"
+nameprogram="1C Предприятие 8.3"
 
 #$DIALOG --title "$nameprogram" \
 #        --menu "Что делаем:" 80 80 80 \
@@ -94,8 +95,8 @@ $DIALOG --title "$nameprogram" \
 #        xdg-open http://narod.ru/disk/39770887001/JazzJackRabbit.tar.gz.html
 #        $DIALOG $OPTS --msgbox "Приятной и веселой Вам игры" 10 40
 #        fi
-
-        sudo bar -n emerge app-office/1c-enterprise83-client
+        $DIALOG $OPTS --msgbox "$text2" 10 80
+        sudo emerge app-office/1c-enterprise83-client
 #        wgetnarodru http://ftp.linuxbuh.ru/
 #        jazz-jack-rabbit-unarh
         $DIALOG $OPTS --msgbox "$text1" 10 80
