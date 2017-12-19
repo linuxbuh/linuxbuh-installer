@@ -11,9 +11,9 @@ tmp=`cat /tmp/add-git-ftp.tmp`
 echo "Дата $tmp"
 
 
-cd /tmp
+#cd /tmp
 
-git clone git@github.com:linuxbuh/linuxbuh-installer.git
+#git clone git@github.com:linuxbuh/linuxbuh-installer.git
 
 #git add . &&
 
