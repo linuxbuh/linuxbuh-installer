@@ -12,7 +12,7 @@ echo "Дата $tmp"
 
 git add .
 
-git commit -m 'Изменения от $tmp'
+git commit -m `Изменения от` $tmp
 git push
 
 tar -cvzf /tmp/linuxbuh-installer-"$tmp".tar.gz ./*.* &&
