@@ -30,7 +30,7 @@ trap "rm -f $tempfile" 0 1 2 5 15
 
 $DIALOG --clear --title "Программы" \
         --menu "Список разделов:" 100 100 100 \
-                "1C Enterprise"  "1С Предприятие" \
+                "1C_Enterprise"  "1С Предприятие" \
                 "buh_a-b"  "buh от А до Б" \
                 "fps" "Шутеры" 2> $tempfile
         retval=$?
@@ -38,12 +38,12 @@ $DIALOG --clear --title "Программы" \
         choice=`cat $tempfile`
 
 
-############################ 1C Enterprise
-### menu 1C Enterprise
+############################ 1C_Enterprise
+### menu 1C_Enterprise
 
-if [ "$choice" = "1C Enterprise" ]; then
+if [ "$choice" = "1C_Enterprise" ]; then
 
-$DIALOG --clear --title "Аркады" \
+$DIALOG --clear --title "Бухгалтерские программы" \
         --menu "Список платформ 1C Предприятие:" 100 100 100 \
                 "1centerprise83"  "1С Предприятие: Платформа 8.3" \
                 "1centerprise83_32bit_for64bit"  "1С Предприятие: Платформа 8.3 32 bit для 64 bit системы" \

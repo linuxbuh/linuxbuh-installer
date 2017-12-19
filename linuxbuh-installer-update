@@ -1,6 +1,57 @@
 #!/bin/sh
 
+    if [ "$DISPLAY" != "" ];
+    then
+        DIALOG="Xdialog"
+else
+        DIALOG="dialog"
+    fi
 
-sudo layman -s linuxbuh && sudo eix-update && sudo emerge linuxbuh-installer && sudo dispatch-conf && sudo emerge linuxbuh-installer
 
-sleep 30
+tempfile=`mktemp 2>/dev/null` || tempfile=/tmp/test$$
+trap "rm -f $tempfile" 0 1 2 5 15
+
+$DIALOG --clear --title "Программы" \
+        --menu "Список разделов:" 100 100 100 \
+                "1C_Enterprise_update"  "1С Предприятие обновления" \
+                "buh_a-b"  "buh от А до Б" \
+                "fps" "Шутеры" 2> $tempfile
+        retval=$?
+
+        choice=`cat $tempfile`
+
+############################ 1C_Enterprise_update
+### menu 1C_Enterprise_update
+
+if [ "$choice" = "1C_Enterprise_update" ]; then
+
+$DIALOG --clear --title "Обновления 1С" \
+        --menu "Обновления платформ 1C Предприятие:" 100 100 100 \
+                "1centerprise83_update"  "Обновление 1С Предприятие: Платформа 8.3" \
+                "1centerprise83_32bit_for64bit_update"  "Обновление 1С Предприятие: Платформа 8.3 32 bit для 64 bit системы" \
+                "1centerprise77_update" "Обновление 1С Предприятие: Платформа 7.7" 2> $tempfile
+        retval=$?
+
+        choice=`cat $tempfile`
+
+
+############ end menu 1C_Enterprise_update
+
+############################ 1C_Enterprise83_update
+### menu 1C_Enterprise83_update
+
+  if [ "$choice" = "1centerprise83_update" ]; then
+
+    textfile="$pathtextfile/1centerprise83.txt"
+
+    nameprogram="1C Предприятие 8.3"
+
+    $DIALOG $OPTS --msgbox "Обновляем $nameprogram" 10 60
+    sudo layman -s linuxbuh && sudo eix-update && sudo dispatch-conf && sudo emerge app-office/1c-enterprise83-common app-office/1c-enterprise83-server app-office/1c-enterprise83-client
+    $DIALOG $OPTS --msgbox "Обновили $nameprogram" 10 60
+
+  fi
+
+
+############ end menu 1C_Enterprise83_update
+fi
