@@ -1,6 +1,7 @@
 #!/bin/sh
 
-git add . &&
-git commit -m '`date`' &&
-git push
+DATE=`date '+%Y-%m-%d-%H-%M-%S'`
 
+git add . &&
+git commit -m '"$DATE"' &&
+git push
