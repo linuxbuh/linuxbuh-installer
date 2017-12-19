@@ -1,0 +1,559 @@
+#!/bin/sh
+
+dirprograms=`ls ~ | grep Programs`
+
+if [ dirprograms != $dirprograms ]; then
+    echo "Папка Programs есть в каталоге"
+    else
+    mkdir ~/Programs
+    fi
+
+#путь путь до текстовых файлов
+#pathtextfile=/usr/share/linuxbuh-installer/txt
+pathtextfile=./txt
+
+#text="Нажите Да и будет скачана и установленна программа\nи необходимые для нее библиотеки\n"
+#text1="Все установленно!\n\n Приятной и продуктивной Вам работы"
+
+
+    if [ "$DISPLAY" != "" ];
+    then
+        DIALOG="Xdialog"
+else
+        DIALOG="dialog"
+    fi
+
+
+tempfile=`mktemp 2>/dev/null` || tempfile=/tmp/test$$
+trap "rm -f $tempfile" 0 1 2 5 15
+
+$DIALOG --clear --title "Программы" \
+        --menu "Список разделов:" 100 100 100 \
+                "1C Enterprise"  "1С Предприятие" \
+                "strategy"  "Стратегии" \
+                "fps" "Шутеры" 2> $tempfile
+        retval=$?
+
+        choice=`cat $tempfile`
+
+
+############################ 1C Enterprise
+### menu 1C Enterprise
+
+if [ "$choice" = "1C Enterprise" ]; then
+
+$DIALOG --clear --title "Аркады" \
+        --menu "Список платформ 1C Предприятие:" 100 100 100 \
+                "1centerprise83"  "1С Предприятие: Платформа 8.3" \
+                "1centerprise77" "1С Предприятие: Платформа 7.7" 2> $tempfile
+        retval=$?
+
+        choice=`cat $tempfile`
+
+
+############ end menu 1C Enterprise
+
+if [ "$choice" = "1centerprise83" ]; then
+
+textfile="$pathtextfile/1centerprise83.txt"
+
+nameprogram="Jazz Jack Rabbit"
+
+#$DIALOG --title "$nameprogram" \
+#        --menu "Что делаем:" 80 80 80 \
+#                "msg"  "Описание игры" \
+#                "install"  "Устанавливаем" \
+#                "wgetarh"  "Скачиваем архив" \
+#                "unarh"  "Распаковываем архив" \
+#                "update" "Обновляем" \
+#                "delete" "Удаляем" 2> $tempfile
+#        retval=$?
+
+$DIALOG --title "$nameprogram" \
+        --menu "Что делаем:" 80 80 80 \
+                "msg"  "Описание программы" \
+                "install"  "Устанавливаем" \
+                "update" "Обновляем" \
+                "delete" "Удаляем" 2> $tempfile
+        retval=$?
+
+        choice=`cat $tempfile`
+
+
+  if [ "$choice" = "msg" ]; then
+   $DIALOG $OPTS --textbox "$textfile" 0 0
+  fi
+
+  if [ "$choice" = "install" ]; then
+
+    $DIALOG $OPTS --yesno "$text\n Размер архива с программой 8.19 МБ" 10 80
+     if [ $? = "0" ];
+        then
+#        sudo emerge programs-arcade/jazz-jack-rabbit
+#        $DIALOG $OPTS --msgbox "$msgbox1" 40 80
+#        xdg-open http://narod.ru/disk/39770887001/JazzJackRabbit.tar.gz.html
+#        $DIALOG $OPTS --msgbox "Приятной и веселой Вам игры" 10 40
+#        fi
+
+        sudo bar -n emerge app-office/1c-enterprise83-client
+#        wgetnarodru http://ftp.linuxbuh.ru/
+#        jazz-jack-rabbit-unarh
+        $DIALOG $OPTS --msgbox "$text1" 10 80
+        fi
+
+
+  fi
+
+
+#  if [ "$choice" = "wgetarh" ]; then
+#    $DIALOG $OPTS --msgbox "$msgbox2" 10 60
+#    xdg-open http://narod.ru/disk/39770887001/JazzJackRabbit.tar.gz.html
+#    $DIALOG $OPTS --msgbox "Скачали архив Jazz Jack Rabbit" 10 60
+#  fi
+
+
+#  if [ "$choice" = "unarh" ]; then
+#    $DIALOG $OPTS --msgbox "Распаковываем архив Jazz Jack Rabbit" 10 60
+#    jazz-jack-rabbit-unarh
+#    $DIALOG $OPTS --msgbox "Распаковали архив Jazz Jack Rabbit" 10 60
+#  fi
+
+
+  if [ "$choice" = "update" ]; then
+    $DIALOG $OPTS --msgbox "Обновляем $nameprogram" 10 60
+    sudo layman -s ztime
+    sudo eix-update
+    sudo emerge programs-arcade/jazz-jack-rabbit
+    $DIALOG $OPTS --msgbox "Обновили $nameprogram" 10 60
+  fi
+
+  if [ "$choice" = "delete" ]; then
+    $DIALOG $OPTS --yesno "Удаляем $nameprogram" 10 80
+     if [ $? = "0" ];
+        then
+    sudo emerge -C programs-arcade/jazz-jack-rabbit
+    rm -rf ~/Programs/JazzJackRabbit
+    fi
+    $DIALOG $OPTS --msgbox "Удалили $nameprogram :(" 10 60
+  fi
+fi
+
+################## end Jazz Jack Rabbit
+
+if [ "$choice" = "raptor" ]; then
+
+textfile="$pathtextfile/RaptorCalloftheShadows.txt"
+nameprogram="Raptor Call of the Shadows"
+
+$DIALOG --title "$nameprogram" \
+        --menu "Что делаем:" 80 80 80 \
+                "msg"  "Описание игры" \
+                "install"  "Устанавливаем" \
+                "update" "Обновляем" \
+                "delete" "Удаляем" 2> $tempfile
+        retval=$?
+
+        choice=`cat $tempfile`
+
+
+  if [ "$choice" = "msg" ]; then
+   $DIALOG $OPTS --textbox "$textfile" 0 0
+  fi
+
+  if [ "$choice" = "install" ]; then
+
+    $DIALOG $OPTS --yesno "$text\n Размер архива с программой 7.95 МБ" 10 80
+     if [ $? = "0" ];
+        then
+        sudo emerge programs-arcade/raptor-call-shadows
+        wgetnarodru http://narod.ru/disk/39771959001/RaptorCalloftheShadows.tar.gz.html
+        raptor-call-shadows-unarh
+        $DIALOG $OPTS --msgbox "$text1" 10 80
+        fi
+  fi
+
+  if [ "$choice" = "update" ]; then
+    $DIALOG $OPTS --msgbox "Обновляем $nameprogram" 10 60
+    sudo layman -s ztime
+    sudo eix-update
+    sudo emerge programs-arcade/raptor-call-shadows
+    $DIALOG $OPTS --msgbox "Обновили $nameprogram" 10 60
+  fi
+
+  if [ "$choice" = "delete" ]; then
+    $DIALOG $OPTS --yesno "Удаляем $nameprogram" 10 80
+     if [ $? = "0" ];
+        then
+    sudo emerge -C programs-arcade/raptor-call-shadows
+    rm -rf ~/Programs/RaptorCalloftheShadows
+    fi
+    $DIALOG $OPTS --msgbox "Удалили $nameprogram :(" 10 60
+  fi
+
+fi
+############## end Raptor Call of the Shadows
+
+
+
+######### end arcade
+fi
+######### end arcade
+
+############################ strategy
+#### menu strategy
+
+if [ "$choice" = "strategy" ]; then
+
+$DIALOG --clear --title "Стратегии" \
+        --menu "Список игр:" 80 80 80 \
+                "atdelux" "Airline Tycoon Deluxe" 2> $tempfile
+        retval=$?
+
+        choice=`cat $tempfile`
+
+######### end menu strategy
+
+if [ "$choice" = "atdelux" ]; then
+
+textfile="$pathtextfile/AirlineTycoonDeluxe.txt"
+nameprogram="Airline Tycoon Deluxe"
+
+$DIALOG --title "$nameprogram" \
+        --menu "Что делаем:" 80 80 80 \
+                "msg"  "Описание игры" \
+                "install"  "Устанавливаем" \
+                "update" "Обновляем" \
+                "delete" "Удаляем" 2> $tempfile
+        retval=$?
+
+        choice=`cat $tempfile`
+
+
+  if [ "$choice" = "msg" ]; then
+   $DIALOG $OPTS --textbox "$textfile" 0 0
+  fi
+
+  if [ "$choice" = "install" ]; then
+
+    $DIALOG $OPTS --yesno "$text\n Размер архива с программой 197 МБ" 10 80
+     if [ $? = "0" ];
+        then
+        sudo emerge programs-strategy/airline-tycoon-deluxe
+        wgetnarodru http://narod.ru/disk/40344079001/AirlineTycoonDeluxe.tar.gz.html
+        airline-tycoon-deluxe-unarh
+        $DIALOG $OPTS --msgbox "$text1" 10 80
+     fi
+  fi
+
+  if [ "$choice" = "update" ]; then
+    $DIALOG $OPTS --msgbox "Обновляем $nameprogram" 10 80
+    sudo layman -s ztime
+    sudo eix-update
+    sudo emerge programs-strategy/airline-tycoon-deluxe
+    $DIALOG $OPTS --msgbox "Обновили $nameprogram" 10 80
+  fi
+
+  if [ "$choice" = "delete" ]; then
+    $DIALOG $OPTS --yesno "Удаляем $nameprogram" 10 80
+     if [ $? = "0" ];
+        then
+    sudo emerge -C programs-strategy/airline-tycoon-deluxe
+    rm -rf ~/Programs/AirlineTycoonDeluxe
+    fi
+    $DIALOG $OPTS --msgbox "Удалили $nameprogram :(" 10 80
+  fi
+fi
+########### end  Airline Tycoon Deluxe
+
+
+
+################### end strategy
+fi
+
+#################################################### fps
+############# menu fps
+
+if [ "$choice" = "fps" ]; then
+
+$DIALOG --clear --title "Шутеры" \
+        --menu "Список игр:" 100 100 100 \
+                "apredatorg" "Aliens Versus Predator Gold" \
+                "americasasf" "Americas Army Special Forces" \
+                "rrampage" "Redneck Rampage" \
+                "rrampagera" "Redneck Rampage Rides Again" \
+                "rrampage66" "Redneck Rampage Suckin Grits on Route 66 addon" 2> $tempfile
+        retval=$?
+
+        choice=`cat $tempfile`
+
+############ end menu fps
+
+if [ "$choice" = "apredatorg" ]; then
+
+textfile="$pathtextfile/AliensVersusPredatorGold.txt"
+nameprogram="Aliens Versus Predator Gold"
+
+$DIALOG --title "$nameprogram" \
+        --menu "Что делаем:" 80 80 80 \
+                "msg"  "Описание игры" \
+                "install"  "Устанавливаем" \
+                "update" "Обновляем" \
+                "delete" "Удаляем" 2> $tempfile
+        retval=$?
+
+        choice=`cat $tempfile`
+
+  if [ "$choice" = "msg" ]; then
+   $DIALOG $OPTS --textbox "$textfile" 0 0
+  fi
+
+  if [ "$choice" = "install" ]; then
+
+    $DIALOG $OPTS --yesno "$text\n Размер архива с программой 96.1 МБ" 10 80
+     if [ $? = "0" ];
+        then
+        sudo emerge programs-fps/aliens-versus-predator-gold
+        wgetnarodru http://narod.ru/disk/40345576001/AliensVersusPredatorGold.tar.gz.html
+	aliens-versus-predator-gold-unarh
+        $DIALOG $OPTS --msgbox "$text1" 10 80
+        fi
+  fi
+
+  if [ "$choice" = "update" ]; then
+    $DIALOG $OPTS --msgbox "Обновляем $nameprogram" 10 80
+    sudo layman -s ztime
+    sudo eix-update
+    sudo emerge programs-fps/aliens-versus-predator-gold
+    $DIALOG $OPTS --msgbox "Обновили $nameprogram" 10 80
+  fi
+
+  if [ "$choice" = "delete" ]; then
+    $DIALOG $OPTS --yesno "Удаляем $nameprogram" 10 80
+     if [ $? = "0" ];
+        then
+    sudo emerge -C programs-fps/aliens-versus-predator-gold
+    rm -rf ~/Programs/AliensVersusPredatorGold
+    fi
+    $DIALOG $OPTS --msgbox "Удалили $nameprogram :(" 10 80
+  fi
+
+fi
+
+################ end Aliens Versus Predator Gold
+
+if [ "$choice" = "americasasf" ]; then
+
+textfile="$pathtextfile/AmericasArmySpecialForces.txt"
+nameprogram="Americas Army Special Forces"
+
+$DIALOG --title "$nameprogram" \
+        --menu "Что делаем:" 80 80 80 \
+                "msg"  "Описание игры" \
+                "install"  "Устанавливаем" \
+                "update" "Обновляем" \
+                "delete" "Удаляем" 2> $tempfile
+        retval=$?
+
+        choice=`cat $tempfile`
+
+  if [ "$choice" = "msg" ]; then
+   $DIALOG $OPTS --textbox "$textfile" 0 0
+  fi
+
+  if [ "$choice" = "install" ]; then
+
+    $DIALOG $OPTS --yesno "$text\n Размер архива с программой 872 МБ" 10 80
+     if [ $? = "0" ];
+        then
+        sudo emerge programs-fps/americas-army-special-forces
+        wgetnarodru http://narod.ru/disk/40348925001/AmericasArmySpecialForces.tar.gz.html
+	americas-army-special-forces-unarh
+        $DIALOG $OPTS --msgbox "$text1" 10 80
+        fi
+  fi
+
+  if [ "$choice" = "update" ]; then
+    $DIALOG $OPTS --msgbox "Обновляем $nameprogram" 10 80
+    sudo layman -s ztime
+    sudo eix-update
+    sudo emerge programs-fps/americas-army-special-forces
+    $DIALOG $OPTS --msgbox "Обновили $nameprogram" 10 80
+  fi
+
+  if [ "$choice" = "delete" ]; then
+    $DIALOG $OPTS --yesno "Удаляем $nameprogram" 10 80
+     if [ $? = "0" ];
+        then
+    sudo emerge -C programs-fps/americas-army-special-forces
+    rm -rf ~/Programs/AmericasArmySpecialForces
+    fi
+    $DIALOG $OPTS --msgbox "Удалили $nameprogram :(" 10 80
+  fi
+
+fi
+
+################ end Americas Army Special Forces
+
+if [ "$choice" = "rrampage" ]; then
+
+textfile="$pathtextfile/RedneckRampage.txt"
+nameprogram="Redneck Rampage"
+
+$DIALOG --title "$nameprogram" \
+        --menu "Что делаем:" 80 80 80 \
+                "msg"  "Описание игры" \
+                "install"  "Устанавливаем" \
+                "update" "Обновляем" \
+                "delete" "Удаляем" 2> $tempfile
+        retval=$?
+
+        choice=`cat $tempfile`
+
+  if [ "$choice" = "msg" ]; then
+   $DIALOG $OPTS --textbox "$textfile" 0 0
+  fi
+
+  if [ "$choice" = "install" ]; then
+
+    $DIALOG $OPTS --yesno "$text\n Размер архива с программой 126 МБ" 10 80
+     if [ $? = "0" ];
+        then
+        sudo emerge programs-fps/redneck-rampage
+        wgetnarodru http://narod.ru/disk/39900119001/RedneckRampage.tar.gz.html
+	redneck-rampage-unarh
+        $DIALOG $OPTS --msgbox "$text1" 10 80
+        fi
+  fi
+
+  if [ "$choice" = "update" ]; then
+    $DIALOG $OPTS --msgbox "Обновляем $nameprogram" 10 80
+    sudo layman -s ztime
+    sudo eix-update
+    sudo emerge programs-fps/redneck-rampage
+    $DIALOG $OPTS --msgbox "Обновили $nameprogram" 10 80
+  fi
+
+  if [ "$choice" = "delete" ]; then
+    $DIALOG $OPTS --yesno "Удаляем $nameprogram" 10 80
+     if [ $? = "0" ];
+        then
+    sudo emerge -C programs-fps/redneck-rampage
+    rm -rf ~/Programs/RedneckRampage
+    fi
+    $DIALOG $OPTS --msgbox "Удалили $nameprogram :(" 10 80
+  fi
+
+fi
+
+################ end Redneck Rampage
+
+if [ "$choice" = "rrampagera" ]; then
+
+textfile="$pathtextfile/RedneckRampageRidesAgain.txt"
+nameprogram="Redneck Rampage Rides Again"
+
+$DIALOG --title "$nameprogram" \
+        --menu "Что делаем:" 80 80 80 \
+                "msg"  "Описание игры" \
+                "install"  "Устанавливаем" \
+                "update" "Обновляем" \
+                "delete" "Удаляем" 2> $tempfile
+        retval=$?
+
+        choice=`cat $tempfile`
+
+  if [ "$choice" = "msg" ]; then
+   $DIALOG $OPTS --textbox "$textfile" 0 0
+  fi
+    
+  if [ "$choice" = "install" ]; then
+    $DIALOG $OPTS --yesno "$text\n Размер архива с программой 123 МБ" 10 80
+     if [ $? = "0" ];
+        then
+        sudo emerge programs-fps/redneck-rampage-rides-again
+        wgetnarodru http://narod.ru/disk/39900236001/RedneckRampageRidesAgain.tar.gz.html
+        redneck-rampage-rides-again-unarh
+        $DIALOG $OPTS --msgbox "$text1" 10 80
+        fi
+  fi
+
+  if [ "$choice" = "update" ]; then
+    $DIALOG $OPTS --msgbox "Обновляем $nameprogram" 10 80
+    sudo layman -s ztime
+    sudo eix-update
+    sudo emerge programs-fps/redneck-rampage-rides-again
+    $DIALOG $OPTS --msgbox "Обновили $nameprogram" 10 80
+  fi
+
+  if [ "$choice" = "delete" ]; then
+    $DIALOG $OPTS --yesno "Удаляем $nameprogram" 10 80
+     if [ $? = "0" ];
+        then
+    sudo emerge -C programs-fps/redneck-rampage-rides-again
+    rm -rf ~/Programs/RedneckRampageRidesAgain
+    fi
+    $DIALOG $OPTS --msgbox "Удалили $nameprogram :(" 10 80
+  fi
+
+fi
+
+############## end Redneck Rampage Rides Again
+
+if [ "$choice" = "rrampage66" ]; then
+
+textfile="$pathtextfile/RedneckRampageRoute66.txt"
+nameprogram="Redneck Rampage Suckin Grits on Route 66 addon"
+
+$DIALOG --title "$nameprogram" \
+        --menu "Что делаем:" 80 100 80 \
+                "msg"  "Описание игры" \
+                "install"  "Устанавливаем" \
+                "update" "Обновляем" \
+                "delete" "Удаляем" 2> $tempfile
+        retval=$?
+
+        choice=`cat $tempfile`
+
+  if [ "$choice" = "msg" ]; then
+   $DIALOG $OPTS --textbox "$textfile" 0 0
+  fi
+    
+  if [ "$choice" = "install" ]; then
+    $DIALOG $OPTS --yesno "$text\n Размер архива с программой 129 МБ" 10 80
+     if [ $? = "0" ];
+        then
+        sudo emerge programs-fps/redneck-rampage-route66
+        wgetnarodru http://narod.ru/disk/39900784001/RedneckRampageRoute66.tar.gz.html
+        redneck-rampage-route66-unarh
+        $DIALOG $OPTS --msgbox "$text1" 10 80
+        fi
+  fi
+
+  if [ "$choice" = "update" ]; then
+    $DIALOG $OPTS --msgbox "Обновляем $nameprogram" 10 100
+    sudo layman -s ztime
+    sudo eix-update
+    sudo emerge programs-fps/redneck-rampage-route66
+    $DIALOG $OPTS --msgbox "Обновили $nameprogram" 10 100
+  fi
+
+  if [ "$choice" = "delete" ]; then
+    $DIALOG $OPTS --yesno "Удаляем $nameprogram" 10 100
+     if [ $? = "0" ];
+        then
+    sudo emerge -C programs-fps/redneck-rampage-route66
+    rm -rf ~/Programs/RedneckRampageRidesAgainRoute66
+    fi
+    $DIALOG $OPTS --msgbox "Удалили $nameprogram :(" 10 100
+  fi
+
+fi
+################## end Redneck Rampage Suckin Grits on Route 66 addon
+
+
+########## end FPS
+fi
+########## end FPS
+
+
+

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+
+sudo layman -s linuxbuh && sudo eix-update && sudo emerge linuxbuh-installer && sudo dispatch-conf && sudo emerge linuxbuh-installer
+
+sleep 30
