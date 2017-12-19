@@ -31,7 +31,7 @@ trap "rm -f $tempfile" 0 1 2 5 15
 $DIALOG --clear --title "Программы" \
         --menu "Список разделов:" 100 100 100 \
                 "1C Enterprise"  "1С Предприятие" \
-                "strategy"  "Стратегии" \
+                "buh_a-b"  "buh от А до Б" \
                 "fps" "Шутеры" 2> $tempfile
         retval=$?
 
@@ -46,6 +46,7 @@ if [ "$choice" = "1C Enterprise" ]; then
 $DIALOG --clear --title "Аркады" \
         --menu "Список платформ 1C Предприятие:" 100 100 100 \
                 "1centerprise83"  "1С Предприятие: Платформа 8.3" \
+                "1centerprise83_32bit_for64bit"  "1С Предприятие: Платформа 8.3 32 bit для 64 bit системы" \
                 "1centerprise77" "1С Предприятие: Платформа 7.7" 2> $tempfile
         retval=$?
 
@@ -132,23 +133,22 @@ $DIALOG --title "$nameprogram" \
     $DIALOG $OPTS --yesno "Удаляем $nameprogram" 10 80
      if [ $? = "0" ];
         then
-    sudo emerge -C programs-arcade/jazz-jack-rabbit
-    rm -rf ~/Programs/JazzJackRabbit
+    sudo emerge -C app-office/1c-enterprise83-common app-office/1c-enterprise83-server app-office/1c-enterprise83-client
     fi
     $DIALOG $OPTS --msgbox "Удалили $nameprogram :(" 10 60
   fi
 fi
 
-################## end Jazz Jack Rabbit
+################## end 1C Enterprise
 
-if [ "$choice" = "raptor" ]; then
+if [ "$choice" = "1centerprise83_32bit_for64bit" ]; then
 
-textfile="$pathtextfile/RaptorCalloftheShadows.txt"
-nameprogram="Raptor Call of the Shadows"
+textfile="$pathtextfile/1centerprise83_32bit_for64bit.txt"
+nameprogram="1centerprise83_32bit_for64bit"
 
 $DIALOG --title "$nameprogram" \
         --menu "Что делаем:" 80 80 80 \
-                "msg"  "Описание игры" \
+                "msg"  "Описание программы" \
                 "install"  "Устанавливаем" \
                 "update" "Обновляем" \
                 "delete" "Удаляем" 2> $tempfile
@@ -166,9 +166,19 @@ $DIALOG --title "$nameprogram" \
     $DIALOG $OPTS --yesno "$text\n Размер архива с программой 7.95 МБ" 10 80
      if [ $? = "0" ];
         then
-        sudo emerge programs-arcade/raptor-call-shadows
-        wgetnarodru http://narod.ru/disk/39771959001/RaptorCalloftheShadows.tar.gz.html
-        raptor-call-shadows-unarh
+        #sudo emerge programs-arcade/raptor-call-shadows
+        #wgetnarodru http://narod.ru/disk/39771959001/RaptorCalloftheShadows.tar.gz.html
+        #raptor-call-shadows-unarh
+        wget -c http://ftp.linuxbuh.ru/1c83/server/1c-enterprise83-common_8.3.10-2667_i386.tar.gz -P /tmp/1c &&
+	wget -c http://ftp.linuxbuh.ru/1c83/server/1c-enterprise83-server_8.3.10-2667_i386.tar.gz -P /tmp/1c &&
+	wget -c http://ftp.linuxbuh.ru/1c83/client/1c-enterprise83-client_8.3.10-2667_i386.tar.gz -P /tmp/1c &&
+	wget -c http://ftp.linuxbuh.ru/1c83/libfor1c/backbus-i386.tar.gz -P /tmp/1c &&
+	tar xfvz /tmp/1c/1c-enterprise83-common_8.3.10-2667_i386.tar.gz -C / &&
+	tar xfvz /tmp/1c/1c-enterprise83-server_8.3.10-2667_i386.tar.gz -C / &&
+	tar xfvz /tmp/1c/1c-enterprise83-client_8.3.10-2667_i386.tar.gz -C / &&
+	tar xfvz /tmp/1c/backbus-i386.tar.gz -C / &&
+	rm -R /tmp/1c
+	
         $DIALOG $OPTS --msgbox "$text1" 10 80
         fi
   fi
@@ -185,8 +195,11 @@ $DIALOG --title "$nameprogram" \
     $DIALOG $OPTS --yesno "Удаляем $nameprogram" 10 80
      if [ $? = "0" ];
         then
-    sudo emerge -C programs-arcade/raptor-call-shadows
-    rm -rf ~/Programs/RaptorCalloftheShadows
+    rm /usr/share/applications/1cestart.desktop &&
+    rm /usr/share/applications/1cv8.desktop &&
+    rm /usr/share/applications/1cv8c.desktop
+    rm -R /tmp/1c
+    rm -R /opt/1C
     fi
     $DIALOG $OPTS --msgbox "Удалили $nameprogram :(" 10 60
   fi
@@ -200,28 +213,28 @@ fi
 fi
 ######### end arcade
 
-############################ strategy
-#### menu strategy
+############################ buh_a-b
+#### menu buh_a-b
 
-if [ "$choice" = "strategy" ]; then
+if [ "$choice" = "buh_a-b" ]; then
 
-$DIALOG --clear --title "Стратегии" \
-        --menu "Список игр:" 80 80 80 \
-                "atdelux" "Airline Tycoon Deluxe" 2> $tempfile
+$DIALOG --clear --title "buh от А до Б" \
+        --menu "Список программ:" 80 80 80 \
+                "biznespack" "Бизнес-Пак" 2> $tempfile
         retval=$?
 
         choice=`cat $tempfile`
 
-######### end menu strategy
+######### end menu buh_a-b
 
-if [ "$choice" = "atdelux" ]; then
+if [ "$choice" = "biznespack" ]; then
 
-textfile="$pathtextfile/AirlineTycoonDeluxe.txt"
-nameprogram="Airline Tycoon Deluxe"
+textfile="$pathtextfile/bp7.txt"
+nameprogram="bp7"
 
 $DIALOG --title "$nameprogram" \
         --menu "Что делаем:" 80 80 80 \
-                "msg"  "Описание игры" \
+                "msg"  "Описание программы" \
                 "install"  "Устанавливаем" \
                 "update" "Обновляем" \
                 "delete" "Удаляем" 2> $tempfile
@@ -239,9 +252,20 @@ $DIALOG --title "$nameprogram" \
     $DIALOG $OPTS --yesno "$text\n Размер архива с программой 197 МБ" 10 80
      if [ $? = "0" ];
         then
-        sudo emerge programs-strategy/airline-tycoon-deluxe
-        wgetnarodru http://narod.ru/disk/40344079001/AirlineTycoonDeluxe.tar.gz.html
-        airline-tycoon-deluxe-unarh
+#        sudo emerge programs-strategy/airline-tycoon-deluxe
+#        wgetnarodru http://narod.ru/disk/40344079001/AirlineTycoonDeluxe.tar.gz.html
+#        airline-tycoon-deluxe-unarh
+	wget -c http://ftp.linuxbuh.ru/buhsoft/bp7/wine_biznespack.tar.gz -P /tmp/bp7 &&
+	wget -c http://ftp.linuxbuh.ru/buhsoft/bp7/bp7.tar.gz -P /tmp/bp7 &&
+	wget -c http://ftp.linuxbuh.ru/buhsoft/bp7/Desktop.tar.gz -P /tmp/bp7 &&
+	tar xfvz /tmp/bp7/bp7.tar.gz -C ~/Programs &&
+	tar xfvz /tmp/bp7/Desktop.tar.gz -C /tmp/bp7 &&
+	tar xfvz /tmp/bp7/wine_biznespack.tar.gz -C /tmp/bp7 &&
+	mkdir -p ~/.wine_biznespack &&
+	cp -R /tmp/bp7/wine_biznespack/* ~/.wine_biznespack &&
+	cp /tmp/bp7/Desktop/Бизнес\ Пак\ 7.desktop ~/Рабочий\ стол
+#	rm -R /tmp/bp7
+
         $DIALOG $OPTS --msgbox "$text1" 10 80
      fi
   fi
