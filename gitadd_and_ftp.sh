@@ -8,12 +8,11 @@ echo $DATE >> /tmp/gitadd_and_ftp.tmp
 
 tmp=`cat /tmp/gitadd_and_ftp.tmp`
 
-echo "$tmp"
+echo "Дата $tmp"
 
 git add .
 
-git commit -m $tmp
-
+git commit -m 'Изменения от $tmp'
 git push
 
 tar -cvzf /tmp/linuxbuh-installer-"$tmp".tar.gz ./*.* &&
