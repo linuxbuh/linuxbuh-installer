@@ -21,12 +21,12 @@ echo "Дата $tmp"
 
 #git push &&
 
-#tar -cvzf /tmp/linuxbuh-installer-"$tmp".tar.gz ./*.* &&
-#cd /tmp &&
-#wput -nd ./linuxbuh-installer-"$tmp".tar.gz ftp://ftpztime:Rfnztdfrfpzdrb1@ftp.linuxbuh.ru/pub/linuxbuh/ &&
+tar -cvzf /tmp/linuxbuh-installer-"$tmp".tar.gz ./* &&
+cd /tmp &&
+wput -nd ./linuxbuh-installer-"$tmp".tar.gz ftp://ftpztime:Rfnztdfrfpzdrb1@ftp.linuxbuh.ru/pub/linuxbuh/ &&
 
 #a=`ls ./ | grep *.ebuild`   # В переменную 'a' попадает результат работы команды 'echo'
 #echo $a
 
 
-#rm -f /tmp/add-git-ftp.tmp
+rm -f /tmp/add-git-ftp.tmp
