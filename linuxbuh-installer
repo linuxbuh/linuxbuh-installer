@@ -157,8 +157,26 @@ $DIALOG --title "$nameprogram" \
     $DIALOG $OPTS --yesno "$text\n Размер архива с программой 7.95 МБ" 10 80
      if [ $? = "0" ];
         then
-        sudo sh -c 'echo "app-crypt/mit-krb5 abi_x86_32" >> /etc/portage/package.use/custom' &&
-        sudo sh -c 'echo "net-libs/libsoup abi_x86_32" >> /etc/portage/package.use/custom' &&
+#Ищем строки
+	if sudo sh -c 'grep -q "app-crypt/mit-krb5 abi_x86_32" /etc/portage/package.use/custom';
+	 then
+	     echo -e "Есть строка app-crypt/mit-krb5 abi_x86_32 в файле /etc/portage/package.use/custom"
+	 else
+	     sudo sh -c 'echo "app-crypt/mit-krb5 abi_x86_32" >> /etc/portage/package.use/custom'
+	     echo "Добавили строку app-crypt/mit-krb5 abi_x86_32 в файл /etc/portage/package.use/custom"
+#         exit 0
+	fi
+	if sudo sh -c 'grep -q "net-libs/libsoup abi_x86_32" /etc/portage/package.use/custom';
+	 then
+	     echo -e "Есть строка net-libs/libsoup abi_x86_32 в файле /etc/portage/package.use/custom"
+	 else
+	     sudo sh -c 'echo "net-libs/libsoup abi_x86_32" >> /etc/portage/package.use/custom'
+	     echo "Добавили строку net-libs/libsoup abi_x86_32 в файл /etc/portage/package.use/custom"
+#         exit 0
+	fi
+
+#        sudo sh -c 'echo "app-crypt/mit-krb5 abi_x86_32" >> /etc/portage/package.use/custom' &&
+#        sudo sh -c 'echo "net-libs/libsoup abi_x86_32" >> /etc/portage/package.use/custom' &&
         sudo emerge app-crypt/mit-krb5 &&
         sudo emerge net-libs/libsoup &&
         sudo wget -c http://ftp.linuxbuh.ru/buhsoft/1C/1c83/server/1c-enterprise83-common_8.3.10-2667_i386.tar.gz -P /tmp/1c &&
