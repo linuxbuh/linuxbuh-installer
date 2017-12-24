@@ -157,8 +157,10 @@ $DIALOG --title "$nameprogram" \
     $DIALOG $OPTS --yesno "$text\n Размер архива с программой 7.95 МБ" 10 80
      if [ $? = "0" ];
         then
-        echo "app-crypt/mit-krb5 abi_x86_32" >/etc/portage/package.use/custom &&
-        echo "net-libs/libsoup abi_x86_32" >/etc/portage/package.use/custom &&
+        sudo echo "app-crypt/mit-krb5 abi_x86_32" >/etc/portage/package.use/custom &&
+        sudo echo "net-libs/libsoup abi_x86_32" >/etc/portage/package.use/custom &&
+        sudo emerge app-crypt/mit-krb5 &&
+        sudo emerge net-libs/libsoup &&
         sudo wget -c http://ftp.linuxbuh.ru/buhsoft/1C/1c83/server/1c-enterprise83-common_8.3.10-2667_i386.tar.gz -P /tmp/1c &&
 	sudo wget -c http://ftp.linuxbuh.ru/buhsoft/1C/1c83/server/1c-enterprise83-server_8.3.10-2667_i386.tar.gz -P /tmp/1c &&
 	sudo wget -c http://ftp.linuxbuh.ru/buhsoft/1C/1c83/client/1c-enterprise83-client_8.3.10-2667_i386.tar.gz -P /tmp/1c &&
