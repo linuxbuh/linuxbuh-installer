@@ -1,0 +1,27 @@
+#!/bin/sh
+
+DIALOG=zenity
+
+tempfile=`mktemp 2>/dev/null` || tempfile=/tmp/test$$
+trap "rm -f $tempfile" 0 1 2 5 15
+
+$DIALOG --list \
+  --title="Установка программ" \
+  --column="Выбор" --column="Название" --column="Описание" \
+    1 Onlyoffice "GtkTreeView crashes on multiple selections" \
+    2 1C "GNOME Dictionary does not handle proxy" \
+    3 Rambox "Menu editing does not work in GNOME 2.0" --checklist 1> $tempfile
+
+    retval=$?
+
+    choice=`cat $tempfile`
+
+if [ "$choice" == "Onlyoffice" ]; then
+
+sudo emerge -av onlyoffice-bin
+
+fi
+
+############################ 1C_Enterprise
+
+
