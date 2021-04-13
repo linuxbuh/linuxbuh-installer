@@ -8,31 +8,30 @@ trap "rm -f $tempfile" 0 1 2 5 15
 $DIALOG --list \
   --title="Установка программ" \
   --column="Выбор" --column="Название" --column="Описание" \
-    1 Onlyoffice "GtkTreeView crashes on multiple selections" \
+    1 onlyoffice-bin "GtkTreeView crashes on multiple selections" \
     2 1C "GNOME Dictionary does not handle proxy" \
-    3 Rambox "Menu editing does not work in GNOME 2.0" --checklist 1> $tempfile
+    3 rambox-bin "Menu editing does not work in GNOME 2.0" --checklist 1> $tempfile
 
     retval=$?
 
+
+grep '|' -P -R -I -l $tempfile | xargs sed -i 's/|/ /g'
+
     choice=`cat $tempfile`
 
-if [ "$choice" == "Onlyoffice" ]; then
 
-sudo emerge dialog |
-        zenity --progress \
-          --title="Установка $choice" \
-          --text="Устанавливается $choice... ждите" \
-          --pulsate
+if [ "$choice" == "$choice" ]; then
 
+sudo emerge $choice |
+
+      zenity --text-info \
+          --title="Установка $choice"
+  
+	
         if [ "$?" = -1 ] ; then
                 zenity --error \
                   --text="Установка отменена."
+			
         fi
-
-
-
 fi
-
-############################ 1C_Enterprise
-
 
