@@ -8,9 +8,10 @@ trap "rm -f $tempfile" 0 1 2 5 15
 $DIALOG --list \
   --title="Установка программ" \
   --column="Выбор" --column="Название" --column="Описание" \
-    1 onlyoffice-bin "GtkTreeView crashes on multiple selections" \
-    2 1C "GNOME Dictionary does not handle proxy" \
-    3 rambox-bin "Menu editing does not work in GNOME 2.0" --checklist 1> $tempfile
+    
+	1 1C "1С: Предприятие" \
+	2 onlyoffice-bin "ONLYOFFICE — офисный пакет с открытым исходным кодом" \
+    	3 rambox-bin "Rambox - это браузер рабочей области, который позволяет вам управлять любым количеством приложений в одном месте" --checklist 1> $tempfile
 
     retval=$?
 
@@ -24,8 +25,11 @@ if [ "$choice" == "$choice" ]; then
 
 sudo emerge $choice |
 
-      zenity --text-info \
-          --title="Установка $choice"
+zenity --progress --text="Идет установка программ $choice ... ждите" --pulsate
+
+
+#      zenity --text-info \
+#          --title="Установка $choice"
   
 	
         if [ "$?" = -1 ] ; then
