@@ -8,10 +8,9 @@ trap "rm -f $tempfile" 0 1 2 5 15
 $DIALOG --list \
   --title="Установка программ" \
   --column="Выбор" --column="Название" --column="Описание" \
-    
-	1 1C "1С: Предприятие" \
+    	1 1C "1С Предприятие" \
 	2 onlyoffice-bin "ONLYOFFICE — офисный пакет с открытым исходным кодом" \
-    	3 rambox-bin "Rambox - это браузер рабочей области, который позволяет вам управлять любым количеством приложений в одном месте" --checklist 1> $tempfile
+    	3 rambox-bin "Rambox - это браузер рабочей области" --checklist 1> $tempfile
 
     retval=$?
 
