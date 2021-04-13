@@ -18,7 +18,18 @@ $DIALOG --list \
 
 if [ "$choice" == "Onlyoffice" ]; then
 
-sudo emerge -av onlyoffice-bin
+sudo emerge dialog |
+        zenity --progress \
+          --title="Установка $choice" \
+          --text="Устанавливается $choice... ждите" \
+          --pulsate
+
+        if [ "$?" = -1 ] ; then
+                zenity --error \
+                  --text="Установка отменена."
+        fi
+
+
 
 fi
 
