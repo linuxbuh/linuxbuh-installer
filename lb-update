@@ -1,3 +1,3 @@
 #!/bin/bash
 
-eix-sync && eix-update && layman -S && cl-update
+emaint sync -r linuxbuh && eix-sync && eix-update && cl-update

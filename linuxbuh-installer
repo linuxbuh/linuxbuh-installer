@@ -19,7 +19,7 @@ text2="Идет установка!\n\n Ждите"
 
     if [ "$DISPLAY" != "" ];
     then
-        DIALOG="Xdialog"
+        DIALOG="zenity"
 else
         DIALOG="dialog"
     fi
@@ -28,11 +28,18 @@ else
 tempfile=`mktemp 2>/dev/null` || tempfile=/tmp/test$$
 trap "rm -f $tempfile" 0 1 2 5 15
 
-$DIALOG --clear --title "Программы" \
-        --menu "Список разделов:" 100 100 100 \
-                "1C_Enterprise"  "1С Предприятие" \
-                "buh_a-b"  "buh от А до Б" \
-                "fps" "Шутеры" 2> $tempfile
+zenity --list \
+  --title="Установка программ" \
+  --column="Number" --column="Название" --column="Описание" \
+    1 Onlyoffice "GtkTreeView crashes on multiple selections" \
+    2 1C "GNOME Dictionary does not handle proxy" \
+    3 Rambox "Menu editing does not work in GNOME 2.0"  2> $tempfile
+
+#$DIALOG --clear --title "Программы" \
+#        --menu "Список разделов:" 100 100 100 \
+#                "1C_Enterprise"  "1С Предприятие" \
+#                "buh_a-b"  "buh от А до Б" \
+#                "fps" "Шутеры" 2> $tempfile
         retval=$?
 
         choice=`cat $tempfile`
