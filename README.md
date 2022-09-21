@@ -1,1 +1,1 @@
-# linuxbuh-installer - терминальный инсталлятор дистрибутивов LinuxBuh и Calculate Linux
+# linuxbuh-installer - терминальный инсталлятор различных программ в дистрибутивах LinuxBuh
